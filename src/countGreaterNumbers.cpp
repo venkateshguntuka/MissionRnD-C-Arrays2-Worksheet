@@ -19,7 +19,38 @@ struct transaction {
 	char date[11];
 	char description[20];
 };
+int compare(char *arrDate, int day, int mon, int year)
+{
+	int arrYear = (((arrDate[6] - '0') * 1000) + ((arrDate[7] - '0') * 100) + ((arrDate[8] - '0') * 10) + (arrDate[9] - '0'));
+	if (arrYear>year)
+		return 1;
+	else if (arrYear<year)
+		return 0;
+	int arrMon = (((arrDate[3] - '0') * 10) + (arrDate[4] - '0'));
+	if (arrMon<mon)
+		return 1;
+	else if (arrMon<mon)
+		return 0;
+	int arrDay = (((arrDate[0] - '0') * 10) + (arrDate[1] - '0'));
+	if (arrDay>day)
+		return 1;
+	else if (arrDay < day)
+		return 0;
+	else
+		return 0;
+}
 
 int countGreaterNumbers(struct transaction *Arr, int len, char *date) {
-	return -1;
+	if (len < 1)
+		return -1;
+
+	int result = 0;
+	int day = (((date[0] - '0') * 10) + (date[1] - '0'));
+	int mon = (((date[3] - '0') * 10) + (date[4] - '0'));
+	int year = (((date[6] - '0') * 1000) + ((date[7] - '0') * 100) + ((date[8] - '0') * 10) + (date[9] - '0'));
+	for (int i = 0; i < len; i++)
+	{
+		result += compare(Arr[i].date, day, mon, year);
+	}
+	return result;
 }
