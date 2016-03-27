@@ -14,7 +14,29 @@ NOTES:
 There are better ways of solving the problem than a brute-force solution which is of O(n^2)
 complexity .
 */
-
+#include<stdlib.h>
+void sort(int *input, int len)
+{
+	for (int i = 0; i < len; i++)
+	{
+		for (int j = i + 1; j < len; j++)
+		{
+			if (input[i]>input[j])
+			{
+				int temp = input[i];
+				input[i] = input[j];
+				input[j] = temp;
+			}
+		}
+	}
+}
 int findSingleOccurenceNumber(int *A, int len) {
-	return -1;
+	if (A==NULL||len < 0)
+		return -1;
+	sort(A,len);
+	for (int i = 0; i<len; i++)
+	{
+		if (A[i] != A[i - 1] && A[i] != A[i + 1])
+			return A[i];
+	}
 }
