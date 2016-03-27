@@ -23,7 +23,38 @@ struct transaction {
 	char date[11];
 	char description[20];
 };
-
+int isEqual(char *arr1Date, char *arr2Date)
+{
+	int equalFlag = 1;
+	for (int i = 0; arr1Date[i] != '\0'&&arr1Date[i] != '\0'; i++)
+	{
+		if (arr1Date[i] != arr2Date[i])
+		{
+			equalFlag = 0;
+			return equalFlag;
+		}
+	}
+	return equalFlag;
+}
 struct transaction * sortedArraysCommonElements(struct transaction *A, int ALen, struct transaction *B, int BLen) {
+	if (A == NULL || B == NULL || ALen < 0 || BLen < 0)
+		return NULL;
+	int len = ALen, j = 0, equalFlag;
+	if (ALen > BLen)
+		len = BLen;
+	struct transaction *result = (struct transaction *)malloc(sizeof(struct transaction)*len);
+	for (int i = 0; i < len; i++)
+	{
+		equalFlag = isEqual(A[i].date, B[i].date);
+		if (equalFlag == 1)
+		{
+			result[j] = A[i];
+			j++;
+		}
+	}
+	if (j > 0)
+		return result;
+	free(result);
 	return NULL;
+
 }
